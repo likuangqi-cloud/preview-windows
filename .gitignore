@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Production build outputs
+dist/
+dist-ssr/
+
+# Tauri build outputs
+src-tauri/target/
+
+# Logs & temp
+*.log
+.DS_Store
+*.local

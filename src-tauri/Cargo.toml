@@ -1,0 +1,23 @@
+[package]
+name = "preview-replica"
+version = "1.0.0"
+description = "macOS Preview App Complete Replica in Tauri + Rust"
+authors = ["Preview Reconstruct Team"]
+edition = "2021"
+
+[lib]
+name = "preview_replica_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+
+[dependencies]
+tauri = { version = "2.0", features = [] }
+tauri-plugin-opener = "2.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+image = { version = "0.25", default-features = true, features = ["png", "jpeg", "webp", "tiff", "bmp", "ico"] }
+kamadak-exif = "0.5"
+base64 = "0.22"
+rayon = "1.10"
