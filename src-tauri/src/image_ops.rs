@@ -76,14 +76,14 @@ pub fn adjust_color_bytes(bytes: &[u8], params: ColorAdjustParams) -> Result<Vec
     Ok(out.into_inner())
 }
 
-pub fn convert_format_bytes(bytes: &[u8], target_format: &str, quality: Option<u8>) -> Result<Vec<u8>, String> {
+pub fn convert_format_bytes(bytes: &[u8], target_format: &str, _quality: Option<u8>) -> Result<Vec<u8>, String> {
     let img = image::load_from_memory(bytes).map_err(|e| e.to_string())?;
     let mut out = Cursor::new(Vec::new());
     match target_format.to_lowercase().as_str() {
         "jpeg" | "jpg" => {
             let rgb = img.to_rgb8();
-            let mut enc = image::codecs::jpeg::JpegEncoder::new_with_quality(&mut out, quality.unwrap_or(85));
-            enc.encode(rgb.as_raw(), rgb.width(), rgb.height(), image::ExtendedColorType::Rgb8)
+            image::DynamicImage::ImageRgb8(rgb)
+                .write_to(&mut out, ImageFormat::Jpeg)
                 .map_err(|e| e.to_string())?;
         }
         "webp" => {
